@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+    php:
+        image: php:7.3-fpm
+        user: ${LOCAL_USER}
+    nginx:
+        image: nginx
+        depends_on:
+            - php
+        environment:
+            - NGINX_HOST=${NGINX_HOST}
+            - NGINX_PORT=${NGINX_HOST_PORT}
+    composer:
+        image: composer
+        working_dir: /var/www/html
+    nodejs:
+        image: node:12
+        user: node
+        working_dir: /home/node/app
+        environment:
+            - NODE_ENV=dev
+    
